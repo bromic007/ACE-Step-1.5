@@ -137,6 +137,7 @@ class GenerationParams:
     repainting_start: float = 0.0
     repainting_end: float = -1
     audio_cover_strength: float = 1.0
+    cover_noise_strength: float = 0.0  # 0=pure noise (no cover), 1=closest to src audio
 
     # 5Hz Language Model Parameters
     thinking: bool = True
@@ -178,7 +179,7 @@ class GenerationConfig:
             - int: Single seed value (will be converted to list and padded)
         lm_batch_chunk_size: Batch chunk size for LM processing
         constrained_decoding_debug: Whether to enable constrained decoding debug
-        audio_format: Output audio format, one of "mp3", "wav", "flac". Default: "flac"
+        audio_format: Output audio format, one of "mp3", "wav", "flac", "wav32", "opus", "aac". Default: "flac"
     """
     batch_size: int = 2
     allow_lm_batch: bool = False
@@ -597,6 +598,7 @@ def generate_music(
             repainting_end=params.repainting_end,
             instruction=params.instruction,
             audio_cover_strength=params.audio_cover_strength,
+            cover_noise_strength=params.cover_noise_strength,
             task_type=params.task_type,
             use_adg=params.use_adg,
             cfg_interval_start=params.cfg_interval_start,
